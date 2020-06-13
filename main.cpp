@@ -1,7 +1,7 @@
 #include<iostream>
 #include <fstream>
 #include "Buffer.hpp"
-void read(char* command,Buffer& buff)
+void read(char* command, Buffer& buff)
 {
 	char fileName[30];
 	char* buffer;
@@ -41,7 +41,8 @@ void read(char* command,Buffer& buff)
 					{
 						std::cout << buffer[i];
 					}
-				}std::cout << std::endl;
+				}
+				std::cout << std::endl;
 				for (int i = 0; i < size; ++i)
 				{
 					if (buffer[i] == '"')
@@ -59,43 +60,85 @@ void read(char* command,Buffer& buff)
 						}
 					}
 				}
+				//std::cout << a;
 				buff.setSize(a);
-				char* helper;
+				char* helper; char* helper2; char* helper3; 
 				for (int i = 0; i <= size; ++i)
 				{
-					if ((buffer[i] == '"') && (buffer[i + 1] != ':') && (buffer[i + 1] != ',')&&(buffer[i+1]!=' '))
+					if ((buffer[i] == '"') && (buffer[i + 1] != ':') && (buffer[i + 1] != ',') && (buffer[i + 1] != ' '))
 					{
 						int b = i;
+						int c = 0;
 						int d = 0;
 						do
 						{
-							d++;
+							c++;
 							b++;
 						} while (buffer[b] != '"');
-						--d;
-						helper = new char[d];
-						int c = 0;
+						--c;
+						helper = new char[c];
 						for (int j = i + 1; j < b; ++j)
 						{
-							helper[c] = buffer[j];
-							c++;
+							helper[d] = buffer[j];
+							d++;
 						}
-						helper[d] = '\0';
+						d = 0;
+						helper[c] = '\0';
+				//		std::cout << helper << " ";
 						if (buffer[b + 3] == '{')
 						{
-							if (buffer[i - 3] == '{')
+							if (buffer[i - 2] == '{')
 							{
+								helper2 = new char[1];
+								strcpy(helper2, "");
 								buff.setFirstString(counter, helper);
-								buff.setSecondString(counter,"0");
+								buff.setSecondString(counter, helper2);
 								buff.setThirdString(counter, helper);
+								helper3 = new char[strlen(helper) + 1];
+								strcpy(helper3, helper);
+								std::cout << "First " << buff.getFirstString(counter) << " ";
+								std::cout << "Second " << buff.getSecondString(counter) << " ";
+								std::cout << "Third " << buff.getThirdString(counter) << " ";								
 								counter++;
+								i = b+3;
 							}
 						}
-						std::cout << helper;
-						std::cout << std::endl;
+						else if (buffer[b + 3] == '"')
+						{
+							int e = b + 3;
+							do
+							{
+								c++;
+								e++;
+							} while (buffer[e] != '"');
+							--c;
+							helper2 = new char[c];
+							for (int j = b+4; j < e; ++j)
+							{
+								helper2[d] = buffer[j];
+								d++;
+							}
+							d = 0;
+							helper2[c] = '\0';
+							buff.setFirstString(counter, helper);
+							buff.setSecondString(counter, helper2);
+							buff.setThirdString(counter, helper3);
+							std::cout << "First " << buff.getFirstString(counter)<<" ";
+							std::cout << "Second " << buff.getSecondString(counter) << " ";
+							std::cout << "Third " << buff.getThirdString(counter) << " ";
+							i = e;
+						}
+			//			std::cout << std::endl;
 					}
 				}
+
 			}
+			/*for (int i = 0; i < a; ++i)
+			{
+				std::cout <<"First "<< buff.getFirstString(i)<<std::endl;
+				std::cout << "Second " << buff.getSecondString(i) << std::endl;
+				std::cout << "Third " << buff.getThirdString(i) << std::endl;
+			}*/
 		}
 		else
 		{
@@ -169,7 +212,7 @@ int main()
 		{
 			if (isOpen == true)
 			{
-				read(command,buff);
+				read(command, buff);
 			}
 			else
 			{
@@ -189,7 +232,7 @@ int main()
 		}
 		else
 		{
-			read(command,buff);
+			read(command, buff);
 			isOpen = true;
 		}
 	} while (strcmp(command, "exit") != 0);

@@ -1,15 +1,1 @@
-{
- "info": {
-   "api": "GetAllowedSubscribers",
-   "time": "12:30",
-   "region": "Sofia"
-  },
-  "response": {
-   "messageId": "13",
-   "message": "Hello",
-   "data": {
-    "user": "niya",
-    "role": "guest"
-    }
-  }
-}
+{ "info": { "api": "GetAllowedSubscribers", "time": "12:30", "region": "Sofia" }, "response": { "messageId": "13", "message": "Hello", "data": { "user": "niya", "role": "guest" } } }
