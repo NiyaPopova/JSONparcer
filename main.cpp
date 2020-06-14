@@ -105,7 +105,11 @@ void read(char* command, Buffer& buff)
 						}
 						else if ((buffer[i - 2] == ',') && (buffer[b + 3] == '{'))
 						{
-
+							/*int j=b;
+							do
+							{
+								j++;
+							}while(buffer[j]!='')*/
 							helper2 = new char[1];
 							strcpy(helper2, "");
 							buff.setFirstString(counter, helper);
@@ -113,14 +117,14 @@ void read(char* command, Buffer& buff)
 							if (check == false)
 							{
 								buff.setThirdString(counter, helper);
+								helper3 = new char[strlen(helper) + 1];
+								strcpy(helper3, helper);
+								check=true;
 							}
 							else
 							{
 								buff.setThirdString(counter, helper3);
-							}/*buff.setThirdString(counter, helper3);
-							helper3 = new char[strlen(helper) + 1];
-							strcpy(helper3, helper);
-						*/	//check = true;
+							}
 							std::cout << "first " << buff.getFirstString(counter) << " ";
 							std::cout << "second " << buff.getSecondString(counter) << " ";
 							std::cout << "third " << buff.getThirdString(counter) << " ";
